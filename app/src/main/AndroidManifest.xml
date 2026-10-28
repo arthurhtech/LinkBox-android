@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.links.LinksActivity" />
+        <activity android:name=".ui.links.LinkFormActivity" />
     </application>
 
 </manifest>

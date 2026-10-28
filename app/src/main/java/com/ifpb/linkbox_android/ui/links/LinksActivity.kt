@@ -54,8 +54,11 @@ class LinksActivity : AppCompatActivity() {
         observeViewModel()
 
         binding.fabAddLink.setOnClickListener {
-            // TODO: Etapa 6 - Abrir Activity de Cadastro de Link
-            Toast.makeText(this, "Adicionar novo link em breve", Toast.LENGTH_SHORT).show()
+            // Inicia criação de link
+            val intent = Intent(this, LinkFormActivity::class.java).apply {
+                putExtra("EXTRA_FOLDER_ID", folderId)
+            }
+            startActivity(intent)
         }
     }
 
@@ -87,8 +90,15 @@ class LinksActivity : AppCompatActivity() {
         popup.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 1 -> {
-                    // TODO: Etapa 6 - Abrir Activity de Edição passando o Link
-                    Toast.makeText(this, "Editar link em breve", Toast.LENGTH_SHORT).show()
+                    // Inicia edição de link
+                    val intent = Intent(this@LinksActivity, LinkFormActivity::class.java).apply {
+                        putExtra("EXTRA_FOLDER_ID", link.folderId)
+                        putExtra("EXTRA_LINK_ID", link.id)
+                        putExtra("EXTRA_LINK_TITLE", link.title)
+                        putExtra("EXTRA_LINK_URL", link.url)
+                        putExtra("EXTRA_LINK_DESC", link.description)
+                    }
+                    startActivity(intent)
                     true
                 }
                 2 -> {
