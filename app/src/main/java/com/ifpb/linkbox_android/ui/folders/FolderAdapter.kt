@@ -39,8 +39,15 @@ class FolderAdapter(
         }
     }
 
+    // Em vez de herdar do RecyclerView.Adapter clássico, usamos o ListAdapter junto com DiffUtil.
+    // A vantagem técnica é enorme: quando adicionamos uma pasta nova, ele não recarrega a lista inteira,
+    // ele calcula a diferença em background e faz a animação apenas no item que entrou ou saiu.
     class FolderDiffCallback : DiffUtil.ItemCallback<Folder>() {
+
+        // Verifica se é o mesmo objeto (pela chave primária)
         override fun areItemsTheSame(oldItem: Folder, newItem: Folder) = oldItem.id == newItem.id
+
+        // Verifica se o conteúdo do objeto mudou (ex: se o usuário renomeou a pasta)
         override fun areContentsTheSame(oldItem: Folder, newItem: Folder) = oldItem == newItem
     }
 }

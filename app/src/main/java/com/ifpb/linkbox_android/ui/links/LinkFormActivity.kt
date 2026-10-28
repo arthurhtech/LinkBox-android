@@ -54,6 +54,8 @@ class LinkFormActivity : AppCompatActivity() {
     }
 
     private fun saveLink() {
+        // Coletamos os dados digitados e usamos o .trim() para limpar espaços em branco acidentais
+        // no começo ou no final da string, evitando salvar lixo no banco.
         val title = binding.etTitle.text.toString().trim()
         val url = binding.etUrl.text.toString().trim()
         val description = binding.etDescription.text.toString().trim()
@@ -78,6 +80,9 @@ class LinkFormActivity : AppCompatActivity() {
         }
 
         // Se passar nas validações, cria o objeto Link
+        // Se o linkId for -1, significa que estamos criando um novo.
+        // Instanciamos a nossa Data Class 'Link'. Passar o ID como '0' instrui o Room Database
+        // a auto-incrementar e gerar um novo ID único para este registro.
         val link = Link(
             id = if (linkId == -1L) 0 else linkId, // ID 0 faz o Room auto-gerar um novo
             title = title,
@@ -86,6 +91,7 @@ class LinkFormActivity : AppCompatActivity() {
             folderId = folderId
         )
 
+        // Delegamos a operação de persistência ao ViewModel, mantendo a Activity focada apenas na UI.
         // Salva ou atualiza
         if (linkId == -1L) {
             viewModel.insert(link)
@@ -94,6 +100,8 @@ class LinkFormActivity : AppCompatActivity() {
         }
 
         Toast.makeText(this, "Link salvo com sucesso!", Toast.LENGTH_SHORT).show()
+        // Encerra a Activity atual, removendo-a da pilha (backstack).
+        // Isso devolve o usuário automaticamente para a tela anterior (a lista de links atualizada).
         finish() // Fecha a tela de formulário e volta para a lista
     }
 

@@ -111,17 +111,23 @@ class LinksActivity : AppCompatActivity() {
         popup.show()
     }
 
+    // Esta função demonstra o conceito de Intent Implícita no Android.
     private fun openUrlInBrowser(url: String) {
         // Validação simples para evitar travamentos caso a URL não tenha http/https
         var parsedUrl = url
+        // Validação preventiva: O navegador do Android exige o protocolo na URL,
+        // então injetamos o HTTP caso o usuário tenha digitado apenas "www.site.com".
         if (!parsedUrl.startsWith("http://") && !parsedUrl.startsWith("https://")) {
             parsedUrl = "http://$parsedUrl"
         }
 
         try {
+            // Em vez de chamar uma classe externa (BrowserActivity), usa ACTION_VIEW.
+            // Aqui é pedido para abrir a URI com o melhor app disponivel no dispositivo.
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(parsedUrl))
             startActivity(intent)
         } catch (e: Exception) {
+            // O bloco try/catch evita que o app feche abruptamente ao tentar abrir uma URL inválida.
             Toast.makeText(this, "Erro ao abrir o link. URL inválida.", Toast.LENGTH_SHORT).show()
         }
     }
