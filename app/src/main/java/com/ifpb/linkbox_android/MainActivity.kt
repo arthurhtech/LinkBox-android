@@ -18,11 +18,12 @@ import com.ifpb.linkbox_android.ui.folders.FolderAdapter
 import com.ifpb.linkbox_android.ui.viewmodel.AppViewModelFactory
 import com.ifpb.linkbox_android.ui.viewmodel.FolderViewModel
 import kotlinx.coroutines.launch
+import kotlin.jvm.java
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding // Correção: faltava o 'var' aqui no exemplo anterior
-    private lateinit var adapter: FolderAdapter       // Correção: faltava o 'var' aqui no exemplo anterior
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var adapter: FolderAdapter
 
     private val viewModel: FolderViewModel by viewModels {
         AppViewModelFactory(
@@ -47,7 +48,12 @@ class MainActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         adapter = FolderAdapter(
             onFolderClick = { folder ->
-                Toast.makeText(this, "Abrir pasta: ${folder.name}", Toast.LENGTH_SHORT).show()
+                // Navega para a tela de Links enviando os dados da pasta
+                val intent = android.content.Intent(this, com.ifpb.linkbox_android.ui.links.LinksActivity::class.java).apply {
+                    putExtra("EXTRA_FOLDER_ID", folder.id)
+                    putExtra("EXTRA_FOLDER_NAME", folder.name)
+                }
+                startActivity(intent)
             },
             onMenuClick = { view, folder ->
                 showPopupMenu(view, folder)
