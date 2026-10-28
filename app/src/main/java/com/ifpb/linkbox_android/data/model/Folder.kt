@@ -1,4 +1,4 @@
-package com.ifpb.linkbox_android.model
+package com.ifpb.linkbox_android.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
