@@ -1,7 +1,7 @@
-package com.ifpb.linkbox_android.dao
+package com.ifpb.linkbox_android.data.dao
 
 import androidx.room.*
-import com.ifpb.linkbox_android.model.Link
+import com.ifpb.linkbox_android.data.model.Link
 import kotlinx.coroutines.flow.Flow
 
 @Dao

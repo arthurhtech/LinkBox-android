@@ -1,14 +1,14 @@
-package com.ifpb.linkbox_android.local
+package com.ifpb.linkbox_android.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.ifpb.linkbox_android.dao.FolderDao
-import com.ifpb.linkbox_android.dao.LinkDao
-import com.ifpb.linkbox_android.model.Folder
-import com.ifpb.linkbox_android.model.Link
+import com.ifpb.linkbox_android.data.dao.FolderDao
+import com.ifpb.linkbox_android.data.dao.LinkDao
+import com.ifpb.linkbox_android.data.model.Folder
+import com.ifpb.linkbox_android.data.model.Link
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,7 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         private class AppDatabaseCallback(
             private val scope: CoroutineScope
-        ) : RoomDatabase.Callback() {
+        ) : Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 INSTANCE?.let { database ->
